@@ -1,0 +1,13 @@
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.exe
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.deps.json
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.runtimeconfig.json
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.runtimeconfig.dev.json
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.dll
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\bin\Debug\netcoreapp3.1\BattleMonstersServer.pdb
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.csprojAssemblyReference.cache
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.AssemblyInfoInputs.cache
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.AssemblyInfo.cs
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.csproj.CoreCompileInputs.cache
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.dll
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.pdb
+C:\Potatis INF\Unity Projects\BattleMonsters\ServerApplication\BattleMonstersServer\BattleMonstersServer\obj\Debug\netcoreapp3.1\BattleMonstersServer.genruntimeconfig.cache
