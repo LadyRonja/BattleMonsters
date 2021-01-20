@@ -77,7 +77,7 @@ namespace BattleMonstersServer
                     int _byteLength = stream.EndRead(_result);
                     if (_byteLength <= 0)
                     {
-                        //TODO: Disconnect client
+                        Server.clients[id].Disconnect();
                         return;
                     }
 
@@ -91,7 +91,7 @@ namespace BattleMonstersServer
                 catch (Exception _ex)
                 {
                     Console.WriteLine($"Error receiving TCP data: {_ex}");
-                    //TODO: Disconnect client
+                    Server.clients[id].Disconnect();
                 }
             }
 
@@ -140,6 +140,15 @@ namespace BattleMonstersServer
                 return false;
 
             }
+
+            public void Disconnect()
+            {
+                socket.Close();
+                stream = null;
+                receivedData = null;
+                receiveBuffer = null;
+                socket = null;
+            }
         }
 
         public class UDP
@@ -179,6 +188,26 @@ namespace BattleMonstersServer
                 });
             }
 
+            public void Disconnect()
+            {
+                endPoint = null;
+
+            }
+
+        }
+
+
+        private void Disconnect()
+        {
+            Console.WriteLine($"{tcp.socket.Client.RemoteEndPoint} has disconnected.");
+
+            //Set any refrences to client specific things such as players to null here
+            //player = null; 
+
+            tcp.Disconnect();
+            udp.Disconnect();
         }
     }
+
+
 }
