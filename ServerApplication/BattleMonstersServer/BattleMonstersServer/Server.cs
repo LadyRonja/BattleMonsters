@@ -17,6 +17,7 @@ namespace BattleMonstersServer
         private static TcpListener tcpListener;
         private static UdpClient udpListener;
 
+        //Upon server startup, open TCP and UDP sockets and begin accepting clients to connect.
         public static void Start(int _maxPlayers, int _port)
         {
             MaxPlayers = _maxPlayers;

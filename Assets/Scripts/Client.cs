@@ -11,7 +11,8 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096; //4096 = 4MB
 
-    public string ip = "127.0.0.1";
+    public string ip = "92.33.146.82";//Public IP
+    //public string ip = "127.0.0.1"; //Local IP
     public int port = 26950; //TODO: Get random free socket port.
     public int myId = 0;
     public TCP tcp;
@@ -37,8 +38,7 @@ public class Client : MonoBehaviour
 
     private void Start()
     {
-        tcp = new TCP();
-        udp = new UDP();
+        
     }
 
     private void OnApplicationQuit()
@@ -48,7 +48,17 @@ public class Client : MonoBehaviour
 
     public void ConnectedToServer()
     {
+        ip = UIManager.instance.IPField.text;
+
+        tcp = new TCP();
+        udp = new UDP();
+
         InitializeClientData();
+
+        if (UIManager.instance.attemptingConnectIP != null)
+        {
+            UIManager.instance.attemptingConnectIP.text = "Attempting to connect to IP: " + Client.instance.ip;
+        }
 
         isConnected = true;
         tcp.Connect();

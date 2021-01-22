@@ -9,6 +9,9 @@ public class UIManager : MonoBehaviour
 
     public GameObject startMenu;
     public InputField usernameField;
+    public InputField IPField;
+
+    public Text attemptingConnectIP;
 
     private void Awake()
     {
@@ -23,10 +26,19 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        if (attemptingConnectIP != null)
+        {
+            attemptingConnectIP.text = "Attempting to connect to IP: " + Client.instance.ip;
+        }
+    }
+
     public void OnConnectedToServer()
     {
         startMenu.SetActive(false);
         usernameField.interactable = false;
+        IPField.interactable = false;
         Client.instance.ConnectedToServer();
     }
 
