@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
 
     public Text attemptingConnectIP;
 
+    //Singleton pattern
     private void Awake()
     {
         if (instance == null)
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //Update debug window displaying in ui where the client is attempting to connect
     private void Start()
     {
         if (attemptingConnectIP != null)
@@ -34,6 +36,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    //When attempting to connect to the server, make the UI non-interactable
     public void OnConnectedToServer()
     {
         startMenu.SetActive(false);

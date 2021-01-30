@@ -26,22 +26,26 @@ namespace BattleMonstersServer
             Console.WriteLine("Starting server...");
             InitalizeServerData();
 
+            //Open tcp listeners to allow incoming communication.
             tcpListener = new TcpListener(IPAddress.Any, Port);
             tcpListener.Start();
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
 
+            //Open a udp client for incoming communication.
             udpListener = new UdpClient(Port);
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
             Console.WriteLine($"Server started on {Port}.");
         }
 
+        //Ensure the server can recieve all TCP communications
         private static void TCPConnectCallback(IAsyncResult _result)
         {
             TcpClient _client = tcpListener.EndAcceptTcpClient(_result);
             tcpListener.BeginAcceptTcpClient(new AsyncCallback(TCPConnectCallback), null);
             Console.WriteLine($"Incoming connection from {_client.Client.RemoteEndPoint}...");
 
+            //Ensure all client tcps are connected to a socket.
             for (int i = 1; i <= MaxPlayers; i++)
             {
                 if (clients[i].tcp.socket == null)
@@ -54,6 +58,7 @@ namespace BattleMonstersServer
             Console.WriteLine($"{_client.Client.RemoteEndPoint} failled to connect: Server full!");
         }
 
+        //Ensure the server can recieve all UDP comminication
         private static void UDPReceiveCallback(IAsyncResult _result)
         {
             try
@@ -62,26 +67,31 @@ namespace BattleMonstersServer
                 byte[] _data = udpListener.EndReceive(_result, ref _clientEndPoint);
                 udpListener.BeginReceive(UDPReceiveCallback, null);
 
+                //Exit if end of message
                 if (_data.Length < 4)
                 {
                     return;
                 }
 
+                //Ensure validity of incoming UDP packet
                 using (Packet _packet = new Packet(_data))
                 {
                     int _clientId = _packet.ReadInt();
 
+                    //No client should have Id 0
                     if (_clientId == 0)
                     {
                         return;
                     }
 
+                    //The client is required to have a endpoint, if they do not, assing them one and avoid processing the packet any further
                     if (clients[_clientId].udp.endPoint == null)
                     {
                         clients[_clientId].udp.Connect(_clientEndPoint);
                         return;
                     }
 
+                    //Ensure the clients endpoint is the same as previously established
                     if (clients[_clientId].udp.endPoint.ToString() == _clientEndPoint.ToString())
                     {
                         clients[_clientId].udp.HandleData(_packet);
@@ -99,6 +109,7 @@ namespace BattleMonstersServer
             }
         }
 
+        //Send a udp packet to the client
         public static void SendUDPData(IPEndPoint _clientEndPoint, Packet _packet)
         {
             try
@@ -114,6 +125,7 @@ namespace BattleMonstersServer
             }
         }
 
+        //Create client instances for all possible users, and initialize packet handlers with appropriate function calls.
         private static void InitalizeServerData() 
         {
             for (int i = 1; i <= MaxPlayers; i++)

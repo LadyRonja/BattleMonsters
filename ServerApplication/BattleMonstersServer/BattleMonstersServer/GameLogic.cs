@@ -6,6 +6,8 @@ namespace BattleMonstersServer
 {
     class GameLogic
     {
+
+        //Runs operations at a fixed rate
         public static void Update() 
         {
             ThreadManager.UpdateMain();

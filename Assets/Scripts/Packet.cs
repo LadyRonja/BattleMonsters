@@ -7,15 +7,15 @@ using UnityEngine;
 /// <summary>Sent from server to client.</summary>
 public enum ServerPackets
 {
-    welcome = 1,
-    udpTest
+    welcome = 1, //(TCP) Send a welcome packet to the client upon connecting
+    udpTest //(UDP) Send a udp packet to test connection with the client
 }
 
 /// <summary>Sent from client to server.</summary>
 public enum ClientPackets
 {
-    welcomeReceived = 1,
-    udpTestReceieve
+    welcomeReceived = 1, //(TCP)Client verifies they recieved the welcome packet
+    udpTestReceieve //(UDP) Client verifies  they recieved the test packet
 }
 
 

@@ -6,6 +6,8 @@ namespace BattleMonstersServer
 {
     class ServerHandle
     {
+
+        //(TCP) Print the confirmation client that the client received the welcome packet.
         public static void WelcomeReceived(int _fromClient, Packet _packet) 
         {
             int _clientIdCheck = _packet.ReadInt();
@@ -19,6 +21,7 @@ namespace BattleMonstersServer
             //TODO: send player into the game
         }
 
+        //(UDP) Print the confirmation client that the client received the UDP test packet.
         public static void UDPTestReceived(int _fromClient, Packet _packet)
         {
             string _msg = _packet.ReadString();

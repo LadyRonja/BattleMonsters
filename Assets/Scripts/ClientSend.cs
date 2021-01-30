@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class ClientSend : MonoBehaviour
 {
+    //Send a TCP packet.
     private static void SendTCPData(Packet _packet) 
     {
         _packet.WriteLength();
         Client.instance.tcp.SendData(_packet);
     }
 
+    //Send a UDP packet
     private static void SendUDPData(Packet _packet)
     {
         _packet.WriteLength();
@@ -19,7 +21,8 @@ public class ClientSend : MonoBehaviour
 
 
     #region Packets
-    public static void WelcomeRecieved() 
+    //(TCP) Welcome confirmation packet, upon recieving welcome packet from server on connection
+    public static void WelcomeRecieved()  
     {
         using (Packet _packet = new Packet((int)ClientPackets.welcomeReceived))
         {
@@ -30,6 +33,7 @@ public class ClientSend : MonoBehaviour
         }
     }
 
+    //(UDP) UDP-test confirmation packet, upon recieving UDP-test packet from server on connection
     public static void UDPTestReceived()
     {
         using (Packet _packet = new Packet((int)ClientPackets.udpTestReceieve))

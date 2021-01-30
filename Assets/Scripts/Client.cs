@@ -11,10 +11,12 @@ public class Client : MonoBehaviour
     public static Client instance;
     public static int dataBufferSize = 4096; //4096 = 4MB
 
+    //Do not change the IP from here, it does not update when building or playing in Unity
     public string ip = "92.33.146.82";//Public IP
-    //public string ip = "127.0.0.1"; //Local IP
     public int port = 26950; //TODO: Get random free socket port.
+
     public int myId = 0;
+
     public TCP tcp;
     public UDP udp;
 
@@ -22,7 +24,7 @@ public class Client : MonoBehaviour
     private delegate void PacketHandler(Packet _packet);
     private static Dictionary<int, PacketHandler> packetHandlers;
 
-
+    //Singleton pattern
     private void Awake()
     {
         if (instance == null)
@@ -36,18 +38,16 @@ public class Client : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        
-    }
-
+    //Disconnect when exiting the editors playmode
     private void OnApplicationQuit()
     {
         Disconnect();
     }
 
+    //Open TCP and UDP communication channels, and attempt to connect the server.
     public void ConnectedToServer()
     {
+        //Get IP user enetered in the UI field
         ip = UIManager.instance.IPField.text;
 
         tcp = new TCP();
@@ -59,11 +59,13 @@ public class Client : MonoBehaviour
         {
             UIManager.instance.attemptingConnectIP.text = "Attempting to connect to IP: " + Client.instance.ip;
         }
-
         isConnected = true;
+
         tcp.Connect();
     }
 
+
+    //TCP is a network protocol that ensures all data arrives and in the right order.
     public class TCP
     {
         public TcpClient socket;
@@ -72,6 +74,7 @@ public class Client : MonoBehaviour
         private Packet receivedData;
         private byte[] receiveBuffer;
 
+        //Open socket and attempt to connect to the server
         public void Connect()
         {
             socket = new TcpClient
@@ -84,6 +87,7 @@ public class Client : MonoBehaviour
             socket.BeginConnect(instance.ip, instance.port, ConnectCallback, socket);
         }
 
+        //Confirm that the socket is connected and communicate with the server
         private void ConnectCallback(IAsyncResult _result)
         {
             socket.EndConnect(_result);
@@ -100,6 +104,7 @@ public class Client : MonoBehaviour
             stream.BeginRead(receiveBuffer, 0, dataBufferSize, RecieveCallback, null);
         }
 
+        //Send desired packet to the server
         public void SendData(Packet _packet)
         {
             try
@@ -115,10 +120,12 @@ public class Client : MonoBehaviour
             }
         }
 
+        //Task asynchronously listens for incoming communication from the client
         private void RecieveCallback(IAsyncResult _result)
         {
             try
             {
+                //Upon recieving a a packet, determine it's length and determine it's validity 
                 int _byteLength = stream.EndRead(_result);
                 if (_byteLength <= 0)
                 {
@@ -126,6 +133,8 @@ public class Client : MonoBehaviour
                     return;
                 }
 
+                //Copy the recieved data and determine if it's the complete packet 
+                //before reseting what has been recieved and start listning for new packets
                 byte[] _data = new byte[_byteLength];
                 Array.Copy(receiveBuffer, _data, _byteLength);
 
@@ -140,13 +149,18 @@ public class Client : MonoBehaviour
             }
         }
 
+        //Determine if a complete packet has been recieved, and if so begin handling it with an apporpriate PacketHandler.
+        //Return true if a complete package has been recieved
         private bool HandleData(byte[] _data)
         {
+            //Determine validity of packet
             int _packetLength = 0;
-
             receivedData.SetBytes(_data);
+
+            //The first 4 bytes of a packet contains the length of the message
             if (receivedData.UnreadLength() >= 4)
             {
+                //If the packet length is less than 1 reset the data
                 _packetLength = receivedData.ReadInt();
                 if (_packetLength <= 0)
                 {
@@ -154,11 +168,15 @@ public class Client : MonoBehaviour
                 }
             }
 
+            //As long as the loop is running, the data contains a complete packet that can be handled
             while (_packetLength > 0 && _packetLength <= receivedData.UnreadLength())
             {
                 byte[] _packetBytes = receivedData.ReadBytes(_packetLength);
+
+                //HandleData may not be ran on the mainThread, but the data should be handled on it.
                 ThreadManager.ExecuteOnMainThread(() =>
                 {
+                    //Have the appropriate PacketHandlet handle the incoming data from the packet
                     using (Packet _packet = new Packet(_packetBytes))
                     {
                         int _packetId = _packet.ReadInt();
@@ -166,6 +184,7 @@ public class Client : MonoBehaviour
                     }
                 });
 
+                //Re-assess if there are still more packets to in the recieved data.
                 _packetLength = 0;
                 if (receivedData.UnreadLength() >= 4)
                 {
@@ -175,8 +194,9 @@ public class Client : MonoBehaviour
                         return true;
                     }
                 }
-            }
+            }//End of while-loop
 
+            // If true, there is still a partial packet to recieve
             if (_packetLength <= 1)
             {
                 return true;
@@ -186,6 +206,7 @@ public class Client : MonoBehaviour
 
         }
 
+        //Close the TCP socket and clean up for new potential connections.
         private void Disconnect()
         {
             instance.Disconnect();
@@ -198,6 +219,7 @@ public class Client : MonoBehaviour
 
     }
 
+    //UDP is a network protocol that is very fast but does not ensure all data arrives, nor the order of said data.
     public class UDP 
     {
         public UdpClient socket;
@@ -208,6 +230,7 @@ public class Client : MonoBehaviour
             endPoint = new IPEndPoint(IPAddress.Parse(instance.ip), instance.port);
         }
 
+        //Assign an endpoint and begin listning for UDP packets
         public void Connect(int _localPort)
         {
             socket = new UdpClient(_localPort);
@@ -221,6 +244,7 @@ public class Client : MonoBehaviour
             }
         }
 
+        //Send a UDP packet
         public void SendData(Packet _packet)
         {
             try
@@ -238,6 +262,7 @@ public class Client : MonoBehaviour
             }
         }
 
+        //Task asynchronously listens for incoming communication
         private void ReceiveCallback(IAsyncResult _result)
         {
             try
@@ -245,28 +270,35 @@ public class Client : MonoBehaviour
                 byte[] _data = socket.EndReceive(_result, ref endPoint);
                 socket.BeginReceive(ReceiveCallback, null);
 
+                //If a UDP packet with less than 4 bytes is recieved, it cannot be determined how large it is and thus won't be handled
                 if (_data.Length < 4)
                 {
                     instance.Disconnect();
                     return;
                 }
 
+                //Handle the packet
                 HandleData(_data);
             }
             catch (Exception _ex)
             {
+                Debug.Log($"Error receiving callback: {_ex}");
                 Disconnect();
             }
         }
 
+        //Handle the recieved data.
         private void HandleData(byte[] _data)
         {
+         
             using (Packet _packet = new Packet(_data))
             {
                 int _packetLength = _packet.ReadInt();
                 _data = _packet.ReadBytes(_packetLength);
             }
 
+            //Packets may be recieved asynchronously, so ensure their data are handled on the main thread with
+            //the appropriate PacketHandler
             ThreadManager.ExecuteOnMainThread(() =>
             {
                 using (Packet _packet = new Packet(_data))
@@ -278,6 +310,7 @@ public class Client : MonoBehaviour
 
         }
 
+        //Clean up and prephare for a new connecton.
         private void Disconnect()
         {
             instance.Disconnect();
@@ -288,8 +321,7 @@ public class Client : MonoBehaviour
     
     }
 
-   
-
+    //Initialize packet handlers with appropriate function calls
     private void InitializeClientData()
     {
         packetHandlers = new Dictionary<int, PacketHandler>()
@@ -300,6 +332,7 @@ public class Client : MonoBehaviour
         Debug.Log("Initialized packets.");
     }
 
+    //Cleanup on disconnection
     private void Disconnect()
     {
         if (isConnected)
