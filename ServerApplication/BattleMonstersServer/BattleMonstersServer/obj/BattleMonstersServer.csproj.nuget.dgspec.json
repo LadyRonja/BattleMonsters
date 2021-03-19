@@ -10,11 +10,11 @@
         "projectUniqueName": "C:\\Potatis INF\\Unity Projects\\BattleMonsters\\ServerApplication\\BattleMonstersServer\\BattleMonstersServer\\BattleMonstersServer.csproj",
         "projectName": "BattleMonstersServer",
         "projectPath": "C:\\Potatis INF\\Unity Projects\\BattleMonsters\\ServerApplication\\BattleMonstersServer\\BattleMonstersServer\\BattleMonstersServer.csproj",
-        "packagesPath": "C:\\Users\\erikm\\.nuget\\packages\\",
+        "packagesPath": "C:\\Users\\ronja\\.nuget\\packages\\",
         "outputPath": "C:\\Potatis INF\\Unity Projects\\BattleMonsters\\ServerApplication\\BattleMonstersServer\\BattleMonstersServer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\erikm\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ronja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -54,7 +54,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }
