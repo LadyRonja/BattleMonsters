@@ -88,31 +88,116 @@ namespace BattleMonstersServer
 
             #region FireCards
 
-            #region CardName
+            #region Fiery Tackle
+            //tempEffectList.add(Damage(2));
+            allCards[arrayPos] = new Card("Fiery Tackle", ElementalType.ElementType.FIRE, 3, tempEffectList);
 
+            tempEffectList.Clear();
             arrayPos++;
             #endregion
 
+            #region Flash Fire
+            //tempEffectList.add(Damage(1));
+            //tempEffectList.add(SlowToken(Self(1)));
+            //tempEffectList.add(Rotate());
+            allCards[arrayPos] = new Card("Flash Fire", ElementalType.ElementType.FIRE, 2, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Burn Weakness
+            //tempEffectList.add(BurnTokensDamage(Own(All)));
+            allCards[arrayPos] = new Card("Burn Weakness", ElementalType.ElementType.FIRE, 8, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Blazing Inferno
+            //tempEffectList.add(Damage(3));
+            //tempEffectList.add(Damage(Self(3)));
+            allCards[arrayPos] = new Card("Blazing Inferno", ElementalType.ElementType.FIRE, 7, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
 
             #endregion
 
             #region WaterCards
 
-            #region CardName
+            #region Hydro Beam
+            //tempEffectList.add(Damage(2));
+            allCards[arrayPos] = new Card("Hydro Beam", ElementalType.ElementType.WATER, 3, tempEffectList);
 
+            tempEffectList.Clear();
             arrayPos++;
             #endregion
 
+            #region Tidal Wave
+            //tempEffectList.add(Damage(2));
+            //tempEffectList.add(Rotate());
+            allCards[arrayPos] = new Card("Tidal Wave", ElementalType.ElementType.WATER, 6, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Toxic Waters
+            //tempEffectList.add(Damage(2));
+            //tempEffectList.add(DamageToken(Random(ToxicWaters())));
+            allCards[arrayPos] = new Card("Toxic Waters", ElementalType.ElementType.WATER, 7, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Wet Mud
+            //tempEffectList.add(DamageImmunity());
+            //tempEffectList.add(SlowToken(3))
+            allCards[arrayPos] = new Card("Flash Fire", ElementalType.ElementType.WATER, 4, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
 
             #endregion
 
             #region GrassCards
 
-            #region CardName
+            #region Thorny Whip
+            //tempEffectList.add(Damage(2));
+            allCards[arrayPos] = new Card("Thorny Whip", ElementalType.ElementType.GRASS, 3, tempEffectList);
 
+            tempEffectList.Clear();
             arrayPos++;
             #endregion
 
+            #region Uproot
+            //tempEffectList.add(Rotate(Enemy(Random(Uproot()))));
+            allCards[arrayPos] = new Card("Uproot", ElementalType.ElementType.GRASS, 2, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Strangling Vine
+            //tempEffectList.add(Damage(2));
+            //tempEffectList.add(Rotate(Lock()));
+            allCards[arrayPos] = new Card("Strangling Vine", ElementalType.ElementType.GRASS, 2, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
+
+            #region Might of Nature
+            //tempEffectList.add(Damage(4));
+            allCards[arrayPos] = new Card("Might of Nature", ElementalType.ElementType.GRASS, 9, tempEffectList);
+
+            tempEffectList.Clear();
+            arrayPos++;
+            #endregion
 
             #endregion
         }
