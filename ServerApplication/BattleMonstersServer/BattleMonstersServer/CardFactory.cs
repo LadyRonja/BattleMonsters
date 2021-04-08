@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BattleMonstersServer.CardEffects;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -69,7 +70,7 @@ namespace BattleMonstersServer
 
             #region Infect Wounds
             //tempEffectList.add(Priority(Case(OpponentTypePlayed(Rotator))));
-            //tempEffectList.add(DamageToken(3))
+            tempEffectList.Add(new ApplyDamageToken(3));
             allCards[arrayPos] = new Card("Infect Wounds", ElementalType.ElementType.SPECIAL, 6, tempEffectList);
 
             tempEffectList.Clear();
@@ -89,7 +90,7 @@ namespace BattleMonstersServer
             #region FireCards
 
             #region Fiery Tackle
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.FIRE));
             allCards[arrayPos] = new Card("Fiery Tackle", ElementalType.ElementType.FIRE, 3, tempEffectList);
 
             tempEffectList.Clear();
@@ -97,7 +98,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Flash Fire
-            //tempEffectList.add(Damage(1));
+            tempEffectList.Add(new DealDamage(1, ElementalType.ElementType.FIRE));
             //tempEffectList.add(SlowToken(Self(1)));
             //tempEffectList.add(Rotate());
             allCards[arrayPos] = new Card("Flash Fire", ElementalType.ElementType.FIRE, 2, tempEffectList);
@@ -115,7 +116,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Blazing Inferno
-            //tempEffectList.add(Damage(3));
+            tempEffectList.Add(new DealDamage(3, ElementalType.ElementType.FIRE));
             //tempEffectList.add(Damage(Self(3)));
             allCards[arrayPos] = new Card("Blazing Inferno", ElementalType.ElementType.FIRE, 7, tempEffectList);
 
@@ -128,7 +129,7 @@ namespace BattleMonstersServer
             #region WaterCards
 
             #region Hydro Beam
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.WATER));
             allCards[arrayPos] = new Card("Hydro Beam", ElementalType.ElementType.WATER, 3, tempEffectList);
 
             tempEffectList.Clear();
@@ -136,7 +137,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Tidal Wave
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.WATER));
             //tempEffectList.add(Rotate());
             allCards[arrayPos] = new Card("Tidal Wave", ElementalType.ElementType.WATER, 6, tempEffectList);
 
@@ -145,7 +146,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Toxic Waters
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.WATER));
             //tempEffectList.add(DamageToken(Random(ToxicWaters())));
             allCards[arrayPos] = new Card("Toxic Waters", ElementalType.ElementType.WATER, 7, tempEffectList);
 
@@ -167,7 +168,7 @@ namespace BattleMonstersServer
             #region GrassCards
 
             #region Thorny Whip
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.GRASS));
             allCards[arrayPos] = new Card("Thorny Whip", ElementalType.ElementType.GRASS, 3, tempEffectList);
 
             tempEffectList.Clear();
@@ -183,7 +184,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Strangling Vine
-            //tempEffectList.add(Damage(2));
+            tempEffectList.Add(new DealDamage(2, ElementalType.ElementType.GRASS));
             //tempEffectList.add(Rotate(Lock()));
             allCards[arrayPos] = new Card("Strangling Vine", ElementalType.ElementType.GRASS, 2, tempEffectList);
 
@@ -192,7 +193,7 @@ namespace BattleMonstersServer
             #endregion
 
             #region Might of Nature
-            //tempEffectList.add(Damage(4));
+            tempEffectList.Add(new DealDamage(4, ElementalType.ElementType.GRASS));
             allCards[arrayPos] = new Card("Might of Nature", ElementalType.ElementType.GRASS, 9, tempEffectList);
 
             tempEffectList.Clear();
