@@ -37,5 +37,16 @@ namespace BattleMonstersServer
                 cardText += "\n"; //line break for each effect
             }
         }
+
+        #region Getters/Setters
+        public string Name { get => name; }
+        public int Id { get => id;  }
+        public int Initative { get => initative; }
+        public string CardText { get => cardText;  }
+        internal ElementalType.ElementType MyType { get => myType; }
+        internal List<CardEffect> CardEffects { get => cardEffects; }
+
+
+        #endregion
     }
 }

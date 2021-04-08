@@ -12,8 +12,8 @@ namespace BattleMonstersServer
         //TODO: Make threadsafe
         private static CardFactory Instance = null;
         private CardFactory() 
-        { 
-            
+        {
+            CreateAllCards();
         }
 
         public static CardFactory GetInstance()
@@ -200,6 +200,22 @@ namespace BattleMonstersServer
             #endregion
 
             #endregion
+
+            ListAllCards();
+        }
+
+        //Debug function, check card info on serverside.
+        public void ListAllCards()
+        {
+            Console.WriteLine("Listing all existing cards on server:");
+
+            for (int i = 0; i < allCards.Length; i++)
+            {
+
+                Console.WriteLine(allCards[i].Name + ", "  + allCards[i].Initative + ", " + allCards[i].MyType.ToString() + ", " + allCards[i].CardText);
+            }
+
+            Console.WriteLine("All cards on server listed.");
         }
     }
 }

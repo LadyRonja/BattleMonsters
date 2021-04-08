@@ -35,7 +35,11 @@ namespace BattleMonstersServer
             udpListener = new UdpClient(Port);
             udpListener.BeginReceive(UDPReceiveCallback, null);
 
+            
+
             Console.WriteLine($"Server started on {Port}.");
+
+            CardFactory.GetInstance();
         }
 
         //Ensure the server can recieve all TCP communications
